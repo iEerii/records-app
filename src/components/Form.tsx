@@ -8,27 +8,28 @@ const Form = () => {
             <InputWrapper>
                 <DivRelative>
                     <img className="icon-1" src={ Icon1 } alt="user-icon" />
-                    <Input 
-                    type="email" 
+                    <Input
+                    type="email"
                     name="email"
                     placeholder="Email"
                     />
                 </DivRelative>
                 <DivRelative>
                     <img className="icon-1" src={ Icon2 } alt="lock-icon" />
-                    <Input 
+                    <Input
                         type="password"
                         name="password"
-                        placeholder="Password" 
+                        placeholder="Password"
                     />
                 </DivRelative>
             </InputWrapper>
-            
-            <LabelWrapper htmlFor="remember">
-                <input id="remember" type="checkbox"/> 
+
+            <LabelWrapper htmlFor="remember" className="label-container">
+                <input id="remember" type="checkbox"/>
+                <span className="checkmark"></span>
                 Remember me
             </LabelWrapper>
-            
+
             <Button>Log in</Button>
             <LinkWrapper>
                 <p>Forget Password?</p>
@@ -46,7 +47,7 @@ const LoginForm = styled.form`
             font-size: 1.2rem;
             text-align: center;
         }
-        
+
         span {
             color:#0e6197;
             cursor: pointer;
@@ -82,35 +83,63 @@ const Input = styled.input`
 `
 const LabelWrapper = styled.label`
     color: #6c6969;
-    display: flex;
+    cursor: pointer;
+    display: block;
     font-size: 1.2rem;
-    gap: 1rem;
     margin: 1rem 1rem 2.5rem;
+    position: relative;
+    user-select: none;
+    &:hover {
 
-    input[type='checkbox'] {
-        appearance: none;
-        width: 1.5rem;
-        height: 1.5rem;
-        border: .1rem solid #6c6969;
-        border-radius: .4rem;
-        background-color: white;
+    }
+
+    &input[type='checkbox'] {
+        //Hide the browser's default checkbox
         cursor: pointer;
-        position: relative;
-        
-        &:checked {
-            background-color: #f7c25e;
-            border: .1rem #f7c25e;
-        }
-        
-        &:checked::after {
-            content: '✓'; /* Palomita */
-            color: #ffffff; /* Color de la palomita */
-            font-size: 1rem;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        height: 0;
+        opacity: 0;
+        position: absolute;
+        width: 0;
+    }
+
+    // Create a custom checkbox
+    & .checkmark {
+        background-color: #eeeeee;
+        position: absolute;
+        top: -.2rem;
+        left: -.5rem;
+        height: 2rem;
+        width: 2rem;
+    }
+    
+    &.label-container:hover input ~ .checkmark{
+        background-color: #cccccc;
+    }
+
+    &.label-container input:checked ~ .checkmark {
+        background-color: #f7c25e;
+    }
+
+    & .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    &.label-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    &.label-container .checkmark:after {
+        left: .8rem;
+        top: .4rem;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
     }
 `
 
